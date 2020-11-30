@@ -1,0 +1,17 @@
+@font-face {
+    src: url('https://github.com/ipython/xkcd-font/blob/master/xkcd-script/font/xkcd-script.ttf?raw=true');
+}
+
+.root {
+    -fx-font-family: "xkcd Script";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.button {
+    -fx-font-size: 20;
+}
+
+.menu-bar .label {
+    -fx-font-size: 16;
+}
