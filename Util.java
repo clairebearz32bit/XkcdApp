@@ -1,5 +1,7 @@
 package xkcd;
 
+import java.awt.*;
+import java.awt.image.*;
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
@@ -39,5 +41,9 @@ public class Util {
 
     public static InputStream getComic(Integer n) throws IOException, InterruptedException {
         return new URL(getComicUrl(n).replaceAll("http://", "https://")).openStream();
+    }
+
+    public static String getElement(JSONObject comicInfo, String key) {
+        return comicInfo.getString(key);
     }
 }
