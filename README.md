@@ -10,3 +10,4 @@ This project is a desktop client for reading xkcd comics. Currently, the feature
 - [ ] Increased comic information.
 - [ ] Create shortcuts and useful menu bar.
 - [ ] Cross platform executable.
+- [ ] Get comic by the date it was published.
