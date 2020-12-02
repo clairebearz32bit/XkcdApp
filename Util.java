@@ -1,7 +1,5 @@
 package xkcd;
 
-import java.awt.*;
-import java.awt.image.*;
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
@@ -10,6 +8,7 @@ import java.net.http.HttpClient;
 import org.json.JSONObject;
 import java.net.URI;
 import java.io.*;
+import java.text.DateFormatSymbols;
 
 public class Util {
     public static HttpClient client = HttpClient.newHttpClient();
@@ -45,5 +44,16 @@ public class Util {
 
     public static String getElement(JSONObject comicInfo, String key) {
         return comicInfo.getString(key);
+    }
+
+    public static int strToInt(String s) {
+        return Integer.parseInt(s);
+    }
+
+    public static String getDate(JSONObject comicInfo) {
+        String day = getElement(comicInfo, "day");
+        String month = new DateFormatSymbols().getMonths()[strToInt(getElement(comicInfo, "month")) - 1];
+        String year = getElement(comicInfo, "year");
+        return String.format("%s %s, %s", month, day, year);
     }
 }

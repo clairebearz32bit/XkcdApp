@@ -35,6 +35,7 @@
                  <children>
                      <ImageView fx:id="comicImage" fitHeight="640.0" fitWidth="640.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="comicTitle" alignment="CENTER" />
+                  <Label fx:id="comicDate" alignment="CENTER" layoutX="10.0" layoutY="10.0" />
                  </children>
              </AnchorPane>
          </items>

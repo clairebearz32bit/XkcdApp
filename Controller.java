@@ -27,7 +27,7 @@ public class Controller {
     public VBox root;
     public MenuBar menuBar;
     public Menu viewMenu, helpMenu;
-    public Label comicTitle;
+    public Label comicTitle, comicDate;
 
     public int n;
 
@@ -37,19 +37,22 @@ public class Controller {
 
     private void setImg() throws IOException, InterruptedException {
         n  = Integer.parseInt(comicNumber.getText());
-        JSONObject comicInfo = Util.getComicInfo(n);
+        setLabels(Util.getComicInfo(n));
         Image comic = new Image(Util.getComic(n));
+        comicImage.setFitWidth(640);
+        comicImage.setFitHeight(640);
+        comicImage.setPreserveRatio(true);
+        comicImage.setImage(comic);
+    }
+
+    private void setLabels(JSONObject comicInfo) {
         comicTitle.setText(Util.getElement(comicInfo, "title"));
         comicTitle.setStyle("-fx-font-size: 30");
         comicTitle.setTranslateX(160);
         comicTitle.setTranslateY(64);
-        comicImage.setFitWidth(640);
-        comicImage.setFitHeight(640);
-        double x, y;
-        x = comic.getWidth();
-        y = comic.getHeight();
-        comicImage.setPreserveRatio(true);
-        comicImage.setImage(comic);
+
+        comicDate.setText(Util.getDate(comicInfo));
+        comicDate.setTranslateY(96);
     }
 
     @FXML
