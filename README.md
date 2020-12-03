@@ -44,7 +44,7 @@ it's essentially plug-and-play.
 * You can use the arrow keys to increment/decrement the comic number.
 * Press enter to show the comic.
 * If you know the comic number, you can enter it.
-* You can also enter 0 to get the latest comic.
+* You can also enter 0 to view the latest comic.
 
 ## FAQ
 **Question**: Why did you make this?
