@@ -2,6 +2,7 @@
 
 ![](https://www.codefactor.io/repository/github/clairebearz32bit/xkcdapp/badge)
 ![[](https://www.gnu.org/licenses/gpl-3.0)](https://img.shields.io/badge/license-GPLv3-green)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/clairebearz32bit/xkcdApp)
 
 <p align="center">
     <a href="https://github.com/clairebearz32bit/xkcdApp#features">Features</a> •
