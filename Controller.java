@@ -1,5 +1,7 @@
 package xkcd;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +18,9 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import org.json.JSONObject;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Controller {
     @FXML
@@ -28,8 +33,12 @@ public class Controller {
     public MenuBar menuBar;
     public Menu viewMenu, helpMenu;
     public Label comicTitle, comicDate;
+    public MenuItem aboutItem, quitItem;
+    public ToggleGroup comicScale;
+    public RadioMenuItem halfScale, threeQuarterScale, fullScale, fiveQuarterScale;
 
     public int n;
+    public double comicSize = 1;
 
     private void println(Object obj) {
         System.out.println(obj);
@@ -39,8 +48,8 @@ public class Controller {
         n  = Integer.parseInt(comicNumber.getText());
         setLabels(Util.getComicInfo(n));
         Image comic = new Image(Util.getComic(n));
-        comicImage.setFitWidth(640);
         comicImage.setFitHeight(640);
+        comicImage.setFitWidth(640);
         comicImage.setPreserveRatio(true);
         comicImage.setImage(comic);
     }
@@ -81,9 +90,61 @@ public class Controller {
                     setImg();
                 }
 
-                catch(InterruptedException | IOException ignore) {
-
+                catch(InterruptedException | IOException exception) {
+                    exception.printStackTrace();
                 }
+            }
+        });
+    }
+
+    public void setMenu() {
+        aboutItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://github.com/clairebearz32bit/xkcdApp"));
+                    } catch (IOException | URISyntaxException exception) {
+                        exception.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        quitItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Platform.exit();
+            }
+        });
+    }
+
+    public void setComicScale() {
+        halfScale.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                comicSize = 0.5;
+            }
+        });
+
+        threeQuarterScale.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                comicSize = 0.75;
+            }
+        });
+
+        fullScale.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                comicSize = 1;
+            }
+        });
+
+        halfScale.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                comicSize = 1.25;
             }
         });
     }

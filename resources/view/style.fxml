@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -10,10 +11,30 @@
    <children>
        <MenuBar fx:id="menuBar" stylesheets="@../style/style.css">
           <menus>
-              <Menu fx:id="viewMenu" mnemonicParsing="false" text="View" />
-              <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+              <Menu fx:id="viewMenu" mnemonicParsing="false" onAction="#setMenu" text="View">
+               <items>
+                  <Menu mnemonicParsing="false" onAction="#setComicScale" text="Comic Scale">
+                     <items>
+                        <RadioMenuItem fx:id="halfScale" mnemonicParsing="false" text="50%">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="comicScale" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="threeQuarterScale" mnemonicParsing="false" text="75%" toggleGroup="$comicScale" />
+                        <RadioMenuItem fx:id="fullScale" mnemonicParsing="false" text="100%" toggleGroup="$comicScale" />
+                        <RadioMenuItem fx:id="fiveQuarterScale" mnemonicParsing="false" text="125%" toggleGroup="$comicScale" />
+                     </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="quitItem" mnemonicParsing="false" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items></Menu>
+              <Menu fx:id="helpMenu" mnemonicParsing="false" onAction="#setMenu" text="Help">
                  <items>
-                     <MenuItem mnemonicParsing="false" text="About" />
+                     <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="About" />
                  </items>
               </Menu>
           </menus>
@@ -27,8 +48,8 @@
                              <Font name="xkcd-Script-Regular" size="20.0" />
                          </font>
                      </Button>
-                     <TextField fx:id="comicNumber" layoutX="29.0" layoutY="75.0" maxHeight="31.0" maxWidth="138.0" minHeight="31.0" minWidth="138.0" onKeyPressed="#setKeybindings" prefHeight="31.0" prefWidth="138.0" promptText="Comic Num." />
-                     <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="54.0" text="Comic Num. (0 for newest):" />
+                     <TextField fx:id="comicNumber" layoutX="29.0" layoutY="75.0" maxHeight="31.0" maxWidth="138.0" minHeight="31.0" minWidth="138.0" onKeyPressed="#setKeybindings" prefHeight="31.0" prefWidth="138.0" promptText="0 for latest" />
+                     <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="46.0" layoutY="54.0" text="Comic Number:" />
                  </children>
              </AnchorPane>
              <AnchorPane fx:id="imagePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
