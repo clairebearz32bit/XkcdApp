@@ -11,7 +11,7 @@
     <a href="https://github.com/clairebearz32bit/xkcdApp#faq">FAQ</a>
 </p>
 
-# xkcdApp
+# XkcdApp
 **Desktop client for viewing [xkcd](http://xkcd.com) comics.**
 
 I had previously made a different [client](https://github.com/clairebearz32bit/pyxkcd) for xkcd
@@ -35,7 +35,7 @@ Below is a list of both present features and features I want to add later:
 
 ## Systems
 Currently, the only system with an executable is Windows, but I intend to create
-applications with UNIX and macOS support.
+applications with UNIX and macOS support. It uses JDK 15.0.1 currently.
 
 ## Setup
 I tried my best to make this as portable as possible, once you download the executable,
