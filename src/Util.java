@@ -1,5 +1,7 @@
 package xkcd.src;
 
+import java.awt.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
@@ -10,38 +12,41 @@ import java.net.URI;
 import java.io.*;
 import java.text.DateFormatSymbols;
 
-public class Util {
-    public static HttpClient client = HttpClient.newHttpClient();
-    public static final String xkcdUri = "https://xkcd.com/";
-    public static final String newComicUri = xkcdUri + "info.0.json";
-    public static String comicUri = xkcdUri + "%d/info.0.json";
+class ComicRequest {
+    private static final HttpClient client = HttpClient.newHttpClient();
+    private static final String xkcdUri = "https://xkcd.com/";
+    private static final String newComicUri = xkcdUri + "info.0.json";
+
+    /**
+     * @param comicNumber the number of the comic to get, 0 is used for latest comic.
+     * @return the response containing the comic's metadata in JSON form.
+     * @see JSONObject
+     */
+
+    public static JSONObject getComicInfo(int comicNumber) throws Exception {
+        String comicUri = xkcdUri + comicNumber + "/info.0.json";
+        URI uri = comicNumber != 0 ? URI.create(comicUri) : URI.create(newComicUri);
+        HttpRequest request = HttpRequest.newBuilder(uri).build();
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+
+        if(response.body().matches("<[^>]*>") && response.body().toLowerCase().contains("404 not found")) {
+            throw new Exception("Invalid comic number.");
+        }
+
+        return new JSONObject(response.body());
+    }
 
     /**
      * @return the comic's URL that was parsed from {@link #getComicInfo(int)}'s response.
      */
 
-    public static String getComicUrl(int n) throws IOException, InterruptedException {
-        return getComicInfo(n).getString("img");
+    public static InputStream getComic(int comicNumber) throws Exception {
+        String imageUri = getComicInfo(comicNumber).getString("img");
+        return new URL(imageUri.replaceAll("http://", "https://")).openStream();
     }
+}
 
-    /**
-     * @param n the number of the comic to get, 0 is used for latest comic.
-     * @return the response containing the comic's metadata in JSON form.
-     * @see JSONObject
-     */
-
-    public static JSONObject getComicInfo(int n) throws IOException, InterruptedException {
-        URI uri = n != 0 ? URI.create(String.format(comicUri, n)) : URI.create(newComicUri);
-        HttpRequest request = HttpRequest.newBuilder(uri).build();
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-        return new JSONObject(response.body());
-    }
-
-    public static InputStream getComic(Integer n) throws IOException, InterruptedException {
-        return new URL(getComicUrl(n).replaceAll("http://", "https://")).openStream();
-    }
-
+public class Util extends ComicRequest {
     public static String getElement(JSONObject comicInfo, String key) {
         return comicInfo.getString(key);
     }
@@ -55,5 +60,15 @@ public class Util {
         String month = new DateFormatSymbols().getMonths()[strToInt(getElement(comicInfo, "month")) - 1];
         String year = getElement(comicInfo, "year");
         return String.format("%s %s, %s", month, day, year);
+    }
+
+    public static void openUrl(String url) {
+        if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 }
