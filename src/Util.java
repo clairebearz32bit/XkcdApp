@@ -1,4 +1,4 @@
-package xkcd;
+package xkcd.src;
 
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandlers;

@@ -1,4 +1,4 @@
-package xkcd;
+package xkcd.src;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
