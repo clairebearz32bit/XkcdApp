@@ -25,13 +25,6 @@ Below is a list of both present features and features I want to add later:
 - [x] Using arrow keys to increase comic number.
 - [x] Getting the most recent comic.
 - [x] Create shortcuts and useful menu bar.
-- [ ] Storing comics locally on SQL database.
-- [ ] Let a user save a comic they like.
-- [ ] Searching by title using regular expressions.
-- [ ] Using natural language processing to create better search.
-- [ ] Increased comic information.
-- [ ] Cross platform executable.
-- [ ] Get comic by the date it was published.
 
 ## Systems
 Currently, the only system with an executable is Windows, but I intend to create
